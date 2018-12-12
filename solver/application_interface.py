@@ -16,6 +16,9 @@ class ApplicationInterface:
 
         while True:
             try:
+                self.equations.clear()
+                self.initial_conditions.clear()
+
                 self.number_of_equations = int(input("Enter number of equations: "))
 
                 for index in range(0, self.number_of_equations):
@@ -28,12 +31,18 @@ class ApplicationInterface:
 
                 self.step = float(input("Enter step of integration: "))
 
+                if self.step <= 0:
+                    raise ValueError("step of integration")
+
                 interval = input("Enter interval of integration in template <t0, t1>: ")
 
-                interval = interval.split(', ')
+                interval = interval.split(',')
 
                 self.interval[0] = int(interval[0][1:])
-                self.interval[1] = int(interval[1][:1])
+                self.interval[1] = int(interval[1][:-1])
+
+                if self.interval[0] > self.interval[1]:
+                    raise ValueError("interval")
 
                 for index in range(0, self.number_of_equations):
                     self.initial_conditions.append(int(input("Enter initial condition of x" + str(index) + " = ")))
@@ -41,7 +50,7 @@ class ApplicationInterface:
                 break
 
             except ValueError:
-                print("Wrong syntax of interval!")
+                print("Wrong syntax!")
             except IndexError:
                 print("You need to enter two bounds of interval separated by coma!")
 
