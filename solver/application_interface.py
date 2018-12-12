@@ -13,20 +13,21 @@ class ApplicationInterface:
         print("Functions are x0, x1, ..., xn - where n is number of all functions and number of equations.")
         print("Each function is a variable of t - time.")
         print("Every equation should be first order and decoupled.")
-        self.number_of_equations = int(input("Enter number of equations: "))
-
-        for index in range(0, self.number_of_equations):
-            self.equations.append(input("Equation no. " + str(index) + ": dx" + str(index) + "/dt = "))
-
-        print("System of loaded equations presented below: ")
-
-        for index, equation in enumerate(self.equations):
-            print("dx" + str(index) + "/dt = " + equation)
-
-        self.step = float(input("Enter step of integration: "))
 
         while True:
             try:
+                self.number_of_equations = int(input("Enter number of equations: "))
+
+                for index in range(0, self.number_of_equations):
+                    self.equations.append(input("Equation no. " + str(index) + ": dx" + str(index) + "/dt = "))
+
+                print("System of loaded equations presented below: ")
+
+                for index, equation in enumerate(self.equations):
+                    print("dx" + str(index) + "/dt = " + equation)
+
+                self.step = float(input("Enter step of integration: "))
+
                 interval = input("Enter interval of integration in template <t0, t1>: ")
 
                 interval = interval.split(', ')
@@ -34,7 +35,11 @@ class ApplicationInterface:
                 self.interval[0] = int(interval[0][1:])
                 self.interval[1] = int(interval[1][:1])
 
+                for index in range(0, self.number_of_equations):
+                    self.initial_conditions.append(int(input("Enter initial condition of x" + str(index) + " = ")))
+
                 break
+
             except ValueError:
                 print("Wrong syntax of interval!")
             except IndexError:
