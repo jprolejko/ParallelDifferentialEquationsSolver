@@ -1,0 +1,2 @@
+FUNCTION_NAME = 'x'
+VARIABLE_NAME = 't'
