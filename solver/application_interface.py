@@ -82,6 +82,9 @@ class ApplicationInterface:
     def return_initial_conditions(self):
         return self.initial_conditions
 
+    def return_interval(self):
+        return self.interval
+
 
 if __name__ == '__main__':
     print("Cannot be executed standalone. Some mistake occurred...")

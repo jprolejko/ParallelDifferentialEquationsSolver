@@ -1,5 +1,4 @@
 import unittest
-
 import solver.equations_parser as parser
 
 
@@ -65,6 +64,18 @@ class TestEquationsParser(unittest.TestCase):
     def test_right_syntax(self):
         equations = ['x2 + 5*x1*(x0-x2) + (5*12) / x1', 'x0/(x1*x2) - (23/12) * x0', 'x1/x2*x0+x1 - x2']
         initial_values = [1, 1.2, 43.1]
+        interval = [0, 1]
+        eq_parser = parser.EquationsParser(equations, initial_values, interval)
+        test_case = True
+        try:
+            eq_parser.parse()
+        except BaseException:
+            test_case = False
+
+        self.assertTrue(test_case)
+
+        equations = ['x0', 'sin(t)']
+        initial_values = [1, 1.2]
         interval = [0, 1]
         eq_parser = parser.EquationsParser(equations, initial_values, interval)
         test_case = True

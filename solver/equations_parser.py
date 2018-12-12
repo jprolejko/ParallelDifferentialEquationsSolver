@@ -1,10 +1,12 @@
 import solver.config as config
+from math import sin, cos, tan, sqrt, pow, log
 
 
 class EquationsParser:
 
     def __init__(self, equations, initial_values, interval):
         self.equations = equations
+        self.parsed_equations = []
         self.initial_values = initial_values
         self.interval = interval
 
@@ -33,8 +35,6 @@ class EquationsParser:
                 elif variable_seen and not char.isnumeric():
                     new_equation += ']'
                     variable_seen = False
-                elif char.isalpha() and (char != config.FUNCTION_NAME or char != config.VARIABLE_NAME):
-                    raise SyntaxError
 
                 new_equation += char
 
@@ -44,4 +44,13 @@ class EquationsParser:
             equation = new_equation
 
             test_value = eval(equation)
+            self.parsed_equations.append(equation)
 
+    def return_parsed(self):
+        return self.parsed_equations
+
+    def return_initial_values(self):
+        return self.initial_values
+
+    def return_interval(self):
+        return self.interval
