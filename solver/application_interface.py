@@ -5,17 +5,21 @@ class ApplicationInterface:
         self.equations = []
         self.step = 0
 
-    def print_init(self):
+    def init_equations(self):
         print("Parallel Differential Equations Solver")
+        print("")
+        print("Functions are x0, x1, ..., xn - where n is number of all functions and number of equations.")
+        print("Each function is a variable of t - time.")
+        print("Every equation should be first order and decoupled")
         self.number_of_equations = int(input("Enter number of equations: "))
 
-        for index in range(1, self.number_of_equations + 1):
+        for index in range(0, self.number_of_equations):
             self.equations.append(input("Equation no. " + str(index) + ": dx" + str(index) + "/dt = "))
 
         print("System of loaded equations presented below: ")
 
         for index, equation in enumerate(self.equations):
-            print("dx" +  str(index + 1) + "/dt = " + equation)
+            print("dx" + str(index) + "/dt = " + equation)
 
         self.step = float(input("Enter step of integration: "))
 
