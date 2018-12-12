@@ -6,7 +6,10 @@ class EquationsParser:
         self.initial_values = initial_values
 
     def parse(self):
+        parsing_passed = True
+
         if len(self.initial_values) != len(self.equations):
+            parsing_passed = False
             raise AttributeError("Initial values should be the same size as equations!")
 
         x = self.initial_values
@@ -38,9 +41,14 @@ class EquationsParser:
 
             except IndexError:
                 print("Equation no. " + str(equation_index) + " with unknown variable!")
+                parsing_passed = False
 
             except SyntaxError:
                 print("Wrong syntax in equation no. " + str(equation_index) + "!")
+                parsing_passed = False
 
             except ZeroDivisionError:
                 print("Division by zero in equation no. " + str(equation_index) + "!")
+                parsing_passed = False
+
+        return parsing_passed

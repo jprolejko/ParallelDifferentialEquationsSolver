@@ -7,7 +7,11 @@ def main():
     app_interface.init_equations()
 
     eq_parser = parser.EquationsParser(app_interface.return_equations(), app_interface.return_initial_conditions())
-    eq_parser.parse()
+
+    if eq_parser.parse():
+        pass
+    else:
+        print("Parsing failed!")
 
 
 if __name__ == '__main__':
