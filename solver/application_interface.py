@@ -64,6 +64,15 @@ class ApplicationInterface:
         print("Solving failed!")
         print("Most likely, there were some mistakes in equations definitions.")
 
+    @staticmethod
+    def print_info(info):
+        print(info)
+
+    @staticmethod
+    def print_error(error):
+        print(error)
+        exit(0)
+
     def return_equations(self):
         return self.equations
 

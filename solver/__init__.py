@@ -8,10 +8,15 @@ def main():
 
     eq_parser = parser.EquationsParser(app_interface.return_equations(), app_interface.return_initial_conditions())
 
-    if eq_parser.parse():
-        pass
-    else:
-        print("Parsing failed!")
+    try:
+        eq_parser.parse()
+        app_interface.print_info('Parsing passed!')
+    except IndexError:
+        app_interface.print_error('Unknown variable used in equations!')
+    except SyntaxError:
+        app_interface.print_error('Wrong syntax of equations!')
+    except ZeroDivisionError:
+        app_interface.print_error('Given initial conditions cause zero division error!')
 
 
 if __name__ == '__main__':

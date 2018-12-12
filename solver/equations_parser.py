@@ -6,10 +6,7 @@ class EquationsParser:
         self.initial_values = initial_values
 
     def parse(self):
-        parsing_passed = True
-
         if len(self.initial_values) != len(self.equations):
-            parsing_passed = False
             raise AttributeError("Initial values should be the same size as equations!")
 
         globals()[self.VARIABLE_NAME] = self.initial_values
@@ -18,37 +15,23 @@ class EquationsParser:
             variable_seen = False
             new_equation = ''
 
-            try:
-                for char in equation:
-                    if char == self.VARIABLE_NAME:
-                        variable_seen = True
-                        new_equation += char + '['
-                        continue
-                    elif variable_seen and not char.isnumeric():
-                        new_equation += ']'
-                        variable_seen = False
-                    elif char.isalpha() and char != self.VARIABLE_NAME:
-                        raise SyntaxError
-
-                    new_equation += char
-
-                if variable_seen:
+            for char in equation:
+                if char == self.VARIABLE_NAME:
+                    variable_seen = True
+                    new_equation += char + '['
+                    continue
+                elif variable_seen and not char.isnumeric():
                     new_equation += ']'
+                    variable_seen = False
+                elif char.isalpha() and char != self.VARIABLE_NAME:
+                    raise SyntaxError
 
-                equation = new_equation
+                new_equation += char
 
-                test_value = eval(equation)
+            if variable_seen:
+                new_equation += ']'
 
-            except IndexError:
-                print("Equation no. " + str(equation_index) + " with unknown variable!")
-                parsing_passed = False
+            equation = new_equation
 
-            except SyntaxError:
-                print("Wrong syntax in equation no. " + str(equation_index) + "!")
-                parsing_passed = False
+            test_value = eval(equation)
 
-            except ZeroDivisionError:
-                print("Division by zero in equation no. " + str(equation_index) + "!")
-                parsing_passed = False
-
-        return parsing_passed
