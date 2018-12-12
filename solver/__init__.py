@@ -17,13 +17,14 @@ def main():
 
         rk = rk4.RungeKuttaMethod(eq_parser.return_parsed())
 
-        end, values = rk.compute(eq_parser.return_interval()[0],
-                                 eq_parser.return_initial_values(),
-                                 app_interface.return_step())
+        values = eq_parser.return_initial_values()
+        time = app_interface.return_interval()[0]
+        print(str('%.4f' % time) + ": " + str(values))
 
-        for i in range(0, 10000):
-            end, values = rk.compute(end, values, app_interface.return_step())
-            print(str(end) + ": " + str(values))
+        while time + app_interface.return_step() < app_interface.return_interval()[1]:
+            end, values = rk.compute(time, values, app_interface.return_step())
+            print(str('%.4f' % end) + ": " + str(values))
+            time = end
 
     except IndexError:
         app_interface.print_error('Unknown variable used in equations!')
