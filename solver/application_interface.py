@@ -27,4 +27,4 @@ class ApplicationInterface:
 
 
 if __name__ == '__main__':
-    print("Cannot be executed standalone")
+    print("Cannot be executed standalone. Some mistake occurred...")
