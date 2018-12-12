@@ -12,7 +12,7 @@ class EquationsParser:
             parsing_passed = False
             raise AttributeError("Initial values should be the same size as equations!")
 
-        x = self.initial_values
+        globals()[self.VARIABLE_NAME] = self.initial_values
 
         for equation_index, equation in enumerate(self.equations):
             variable_seen = False
