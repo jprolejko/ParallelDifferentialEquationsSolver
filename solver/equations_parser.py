@@ -1,9 +1,12 @@
+import solver.config as config
+from math import sin, cos, tan, sqrt, pow, log
+
+
 class EquationsParser:
-    FUNCTION_NAME = 'x'
-    VARIABLE_NAME = 't'
 
     def __init__(self, equations, initial_values, interval):
         self.equations = equations
+        self.parsed_equations = []
         self.initial_values = initial_values
         self.interval = interval
 
@@ -17,23 +20,21 @@ class EquationsParser:
         if self.interval[0] > self.interval[1]:
             raise AttributeError("Wrong interval!")
 
-        globals()[self.FUNCTION_NAME] = self.initial_values
-        globals()[self.VARIABLE_NAME] = self.interval[0]
+        globals()[config.FUNCTION_NAME] = self.initial_values
+        globals()[config.VARIABLE_NAME] = self.interval[0]
 
         for equation_index, equation in enumerate(self.equations):
             variable_seen = False
             new_equation = ''
 
             for char in equation:
-                if char == self.FUNCTION_NAME:
+                if char == config.FUNCTION_NAME:
                     variable_seen = True
                     new_equation += char + '['
                     continue
                 elif variable_seen and not char.isnumeric():
                     new_equation += ']'
                     variable_seen = False
-                elif char.isalpha() and (char != self.FUNCTION_NAME or char != self.VARIABLE_NAME):
-                    raise SyntaxError
 
                 new_equation += char
 
@@ -43,4 +44,13 @@ class EquationsParser:
             equation = new_equation
 
             test_value = eval(equation)
+            self.parsed_equations.append(equation)
 
+    def return_parsed(self):
+        return self.parsed_equations
+
+    def return_initial_values(self):
+        return self.initial_values
+
+    def return_interval(self):
+        return self.interval
