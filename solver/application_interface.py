@@ -70,6 +70,9 @@ class ApplicationInterface:
     def return_step(self):
         return self.step
 
+    def return_initial_conditions(self):
+        return self.initial_conditions
+
 
 if __name__ == '__main__':
     print("Cannot be executed standalone. Some mistake occurred...")

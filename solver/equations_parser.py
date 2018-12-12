@@ -1,13 +1,15 @@
 class EquationsParser:
     VARIABLE_NAME = 'x'
 
-    def __init__(self, equations):
+    def __init__(self, equations, initial_values):
         self.equations = equations
+        self.initial_values = initial_values
 
     def parse(self):
-        x = []
-        for equation in self.equations:
-            x.append(1.0)
+        if len(self.initial_values) != len(self.equations):
+            raise AttributeError("Initial values should be the same size as equations!")
+
+        x = self.initial_values
 
         for equation_index, equation in enumerate(self.equations):
             variable_seen = False
@@ -39,3 +41,6 @@ class EquationsParser:
 
             except SyntaxError:
                 print("Wrong syntax in equation no. " + str(equation_index) + "!")
+
+            except ZeroDivisionError:
+                print("Division by zero in equation no. " + str(equation_index) + "!")
