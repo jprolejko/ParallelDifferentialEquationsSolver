@@ -1,3 +1,5 @@
+import solver.config as config
+
 class ApplicationInterface:
 
     def __init__(self):
@@ -10,8 +12,9 @@ class ApplicationInterface:
     def init_equations(self):
         print("Parallel Differential Equations Solver")
         print("")
-        print("Functions are x0, x1, ..., xn - where n is number of all functions and number of equations.")
-        print("Each function is a variable of t - time.")
+        print("Functions are " + str(config.FUNCTION_NAME) + "0, " + str(config.FUNCTION_NAME) + "1, ..., " +
+              str(config.FUNCTION_NAME) + "n - where n is number of all functions and number of equations.")
+        print("Each function is a variable of " + str(config.VARIABLE_NAME) + ".")
         print("Every equation should be first order and decoupled.")
 
         while True:
@@ -22,19 +25,22 @@ class ApplicationInterface:
                 self.number_of_equations = int(input("Enter number of equations: "))
 
                 for index in range(0, self.number_of_equations):
-                    self.equations.append(input("Equation no. " + str(index) + ": dx" + str(index) + "/dt = "))
+                    self.equations.append(input("Equation no. " + str(index) + ": d" + str(config.FUNCTION_NAME) +
+                                                str(index) + "/d" + str(config.VARIABLE_NAME) + " = "))
 
                 print("System of loaded equations presented below: ")
 
                 for index, equation in enumerate(self.equations):
-                    print("dx" + str(index) + "/dt = " + equation)
+                    print("d" + str(config.FUNCTION_NAME) + str(index) + "/d" + str(config.VARIABLE_NAME) +
+                          " = " + equation)
 
                 self.step = float(input("Enter step of integration: "))
 
                 if self.step <= 0:
                     raise ValueError("step of integration")
 
-                interval = input("Enter interval of integration in template <t0, t1>: ")
+                interval = input("Enter interval of integration in template <" +
+                                 str(config.VARIABLE_NAME) + "0, " + str(config.VARIABLE_NAME) + "1>: ")
 
                 interval = interval.split(',')
 
@@ -45,7 +51,8 @@ class ApplicationInterface:
                     raise ValueError("interval")
 
                 for index in range(0, self.number_of_equations):
-                    self.initial_conditions.append(int(input("Enter initial condition of x" + str(index) + " = ")))
+                    self.initial_conditions.append(int(input("Enter initial condition of " + str(config.FUNCTION_NAME) +
+                                                             str(index) + " = ")))
 
                 break
 
