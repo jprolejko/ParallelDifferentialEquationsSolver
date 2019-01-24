@@ -1,6 +1,5 @@
 import solver.config as config
 from math import sin, cos, tan, sqrt, pow, log
-from multiprocessing import Process
 
 
 class RungeKuttaMethod:
